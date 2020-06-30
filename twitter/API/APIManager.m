@@ -7,10 +7,10 @@
 //
 
 #import "APIManager.h"
-
+#import "Tweet.h"
 static NSString * const baseURLString = @"https://api.twitter.com";
-static NSString * const consumerKey = // Enter your consumer key here
-static NSString * const consumerSecret = // Enter your consumer secret here
+static NSString * const consumerKey = @"TPMWRh05lxYfG5g8Rt65fARxI";// Enter your consumer key here
+static NSString * const consumerSecret = @"JlHGuBLZxVgm0q8pgtwp8HkzvhJ0DFhjNt2voVczOYsWj9wm4M";// Enter your consumer secret here
 
 @interface APIManager()
 
@@ -49,27 +49,16 @@ static NSString * const consumerSecret = // Enter your consumer secret here
 
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
     
+    // Create a GET Request with an array of tweets
     [self GET:@"1.1/statuses/home_timeline.json"
-   parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
-       
-       // Manually cache the tweets. If the request fails, restore from cache if possible.
-       NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tweetDictionaries];
-       [[NSUserDefaults standardUserDefaults] setValue:data forKey:@"hometimeline_tweets"];
-
-       completion(tweetDictionaries, nil);
-       
-   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-       
-       NSArray *tweetDictionaries = nil;
-       
-       // Fetch tweets from cache if possible
-       NSData *data = [[NSUserDefaults standardUserDefaults] valueForKey:@"hometimeline_tweets"];
-       if (data != nil) {
-           tweetDictionaries = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-       }
-       
-       completion(tweetDictionaries, error);
-   }];
+        parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+            // Success
+            NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
+            completion(tweets, nil);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            // There was a problem
+            completion(nil, error);
+        }];
 }
 
 @end

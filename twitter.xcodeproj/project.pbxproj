@@ -17,6 +17,9 @@
 		6AD278F620BCB68B0085BC29 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD278F520BCB68B0085BC29 /* APIManager.m */; };
 		6AD2790620BCC0380085BC29 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2790520BCC0380085BC29 /* LoginViewController.m */; };
 		6AD2790920BCC04D0085BC29 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2790820BCC04D0085BC29 /* TimelineViewController.m */; };
+		B87A9BA824AA95B40001A866 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A9BA724AA95B40001A866 /* User.m */; };
+		B87A9BB724ABA8FF0001A866 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A9BB624ABA8FF0001A866 /* Tweet.m */; };
+		B87A9BBA24ABB7830001A866 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A9BB824ABB7830001A866 /* TweetCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,12 @@
 		6AD2790720BCC04D0085BC29 /* TimelineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimelineViewController.h; sourceTree = "<group>"; };
 		6AD2790820BCC04D0085BC29 /* TimelineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimelineViewController.m; sourceTree = "<group>"; };
 		75895B6507775E8AFBEEA2D9 /* Pods-twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-twitter/Pods-twitter.debug.xcconfig"; sourceTree = "<group>"; };
+		B87A9BA624AA95B40001A866 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		B87A9BA724AA95B40001A866 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		B87A9BB524ABA8FF0001A866 /* Tweet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Tweet.h; path = ../Tweet.h; sourceTree = "<group>"; };
+		B87A9BB624ABA8FF0001A866 /* Tweet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Tweet.m; path = ../Tweet.m; sourceTree = "<group>"; };
+		B87A9BB824ABB7830001A866 /* TweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TweetCell.m; path = twitter/Models/TweetCell.m; sourceTree = SOURCE_ROOT; };
+		B87A9BB924ABB7830001A866 /* TweetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TweetCell.h; path = twitter/Models/TweetCell.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +120,10 @@
 		6AD278F820BCBC140085BC29 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B87A9BB524ABA8FF0001A866 /* Tweet.h */,
+				B87A9BB624ABA8FF0001A866 /* Tweet.m */,
+				B87A9BA624AA95B40001A866 /* User.h */,
+				B87A9BA724AA95B40001A866 /* User.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -118,6 +131,8 @@
 		6AD278FF20BCBF280085BC29 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B87A9BB924ABB7830001A866 /* TweetCell.h */,
+				B87A9BB824ABB7830001A866 /* TweetCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -234,8 +249,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B87A9BBA24ABB7830001A866 /* TweetCell.m in Sources */,
 				6AD278F320BCA6020085BC29 /* BDBOAuth1SessionManager+SFAuthenticationSession.m in Sources */,
+				B87A9BA824AA95B40001A866 /* User.m in Sources */,
 				6AD278E820BC4B970085BC29 /* main.m in Sources */,
+				B87A9BB724ABA8FF0001A866 /* Tweet.m in Sources */,
 				6AD2790620BCC0380085BC29 /* LoginViewController.m in Sources */,
 				6AD278DA20BC4B950085BC29 /* AppDelegate.m in Sources */,
 				6AD278F620BCB68B0085BC29 /* APIManager.m in Sources */,
@@ -381,13 +399,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 32V87G3FTM;
 				INFOPLIST_FILE = twitter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.twitter;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.codepath.twitter-gfloresv";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -399,13 +417,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 32V87G3FTM;
 				INFOPLIST_FILE = twitter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.twitter;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.codepath.twitter-gfloresv";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
