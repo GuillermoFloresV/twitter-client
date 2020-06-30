@@ -11,7 +11,7 @@
 #import "Tweet.h"
 #import "User.h"
 #import "TweetCell.h"
-
+#import "UIImageView+AFNetworking.h"
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tweetTableView;
 //@property (weak, nonatomic) IBOutlet UITableView *tweetView;
@@ -50,8 +50,11 @@
     cell.dateLabel.text = tweet.createdAtString;
     cell.nameLabel.text = tweet.user.name;
     NSString *concatenatedString = [@"@" stringByAppendingString:tweet.user.screenName ];
+    concatenatedString = [concatenatedString stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
     cell.usernameLabel.text = concatenatedString;
     cell.tweetLabel.text = tweet.text;
+    NSURL *profileImageURLPath = [NSURL URLWithString:tweet.user.profileImagePath];
+    [cell.profilepictureView setImageWithURL:profileImageURLPath];
     return cell;
 }
 
