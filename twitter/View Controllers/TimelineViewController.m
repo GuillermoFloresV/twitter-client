@@ -12,12 +12,12 @@
 #import "User.h"
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
+
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tweetTableView;
-//@property (weak, nonatomic) IBOutlet UITableView *tweetView;
-
-
 @property (nonatomic, strong) NSMutableArray *tweetArray;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 @end
 
 @implementation TimelineViewController
@@ -26,6 +26,11 @@
     [super viewDidLoad];
     self.tweetTableView.dataSource = self;
     self.tweetTableView.delegate = self;
+
+    //allows refreshing of home timeline
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tweetTableView insertSubview:self.refreshControl atIndex:0];
     // Get timeline
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
@@ -61,7 +66,22 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.tweetArray.count;
 }
-
+  // Makes a network request to get updated data
+  // Updates the tableView with the new data
+  // Hides the RefreshControl
+- (void)beginRefresh:(UIRefreshControl *)refreshFeed {
+    // Get timeline
+    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+        if (tweets) {
+            NSLog(@"😎😎😎 Successfully loaded home timeline");
+            self.tweetArray = (NSMutableArray *) tweets;
+        } else {
+            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+        }
+        [self.tweetTableView reloadData];
+        [self.refreshControl endRefreshing];
+    }];
+}
 /*
  #pragma mark - Navigation
  
