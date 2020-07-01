@@ -59,6 +59,14 @@
     concatenatedString = [concatenatedString stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
     cell.usernameLabel.text = concatenatedString;
     cell.tweetLabel.text = tweet.text;
+    
+    //gets nums of retweets and likes for NSString conversion
+    int numFavorite =tweet.favoriteCount;
+    int numRetweet = tweet.retweetCount;
+    
+    cell.numRetweetLabel.text =[@(numRetweet) stringValue];
+    cell.numFavoritesLabel.text = [@(numFavorite) stringValue];
+    
     NSURL *profileImageURLPath = [NSURL URLWithString:tweet.user.profileImagePath];
     [cell.profilepictureView setImageWithURL:profileImageURLPath];
     return cell;
