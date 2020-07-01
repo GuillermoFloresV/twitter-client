@@ -46,7 +46,7 @@
                         <viewLayoutGuide key="safeArea" id="osx-NC-afp"/>
                     </view>
                     <connections>
-                        <segue destination="FTQ-G1-N2b" kind="presentation" identifier="loginSegue" id="CHf-4w-b5m"/>
+                        <segue destination="FTQ-G1-N2b" kind="presentation" identifier="loginSegue" modalPresentationStyle="fullScreen" id="CHf-4w-b5m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKJ-HH-8tn" sceneMemberID="firstResponder"/>
@@ -62,7 +62,7 @@
                         <viewControllerLayoutGuide type="bottom" id="pGj-sa-aq5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qax-2F-Vhk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77K-lf-nGe">
@@ -158,10 +158,16 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsI-05-33H">
                                                     <rect key="frame" x="129" y="86" width="30" height="30"/>
                                                     <state key="normal" image="retweet-icon"/>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="lxE-V6-GeM" eventType="touchUpInside" id="2dx-tE-HPT"/>
+                                                    </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7u1-tj-jgc">
+                                                <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="favoriteButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7u1-tj-jgc">
                                                     <rect key="frame" x="263" y="85" width="30" height="30"/>
                                                     <state key="normal" image="favor-icon"/>
+                                                    <connections>
+                                                        <action selector="didTapFavorite:" destination="lxE-V6-GeM" eventType="touchUpInside" id="VCh-aV-K0Z"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -197,11 +203,13 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="JfQ-BD-2d1" id="4oV-th-SFI"/>
+                                            <outlet property="favoriteButton" destination="7u1-tj-jgc" id="dFt-HC-4Qy"/>
                                             <outlet property="nameLabel" destination="PAe-9J-3Ce" id="OMA-pY-JhI"/>
                                             <outlet property="numFavoritesLabel" destination="9DO-tI-Ir4" id="dkl-mz-NNR"/>
                                             <outlet property="numRetweetLabel" destination="roU-C1-4tM" id="aZK-N2-aHF"/>
                                             <outlet property="profilepictureView" destination="Nsz-os-g3V" id="icI-Ao-zG8"/>
                                             <outlet property="replyLabel" destination="4To-Sy-EWR" id="RSW-iG-E0R"/>
+                                            <outlet property="retweetButton" destination="WsI-05-33H" id="bln-Az-xRB"/>
                                             <outlet property="tweetLabel" destination="Wbv-v9-bKY" id="laR-eI-qYa"/>
                                             <outlet property="usernameLabel" destination="2VT-WR-bya" id="I9X-5h-gDn"/>
                                         </connections>
@@ -216,7 +224,11 @@
                         <viewLayoutGuide key="safeArea" id="ugE-Ul-H9I"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home Timeline" id="MOc-fV-EZE">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="iTa-EB-rkF"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="iTa-EB-rkF">
+                            <connections>
+                                <action selector="logoutButton:" destination="Lbl-k5-U4i" id="4qp-RD-Oaw"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="sendToCompose" image="edit-icon" id="Z2V-3O-mcR">
                             <connections>
                                 <segue destination="Awp-0O-RIc" kind="presentation" id="fKS-Cl-P8f"/>
@@ -277,7 +289,7 @@
                 <navigationController storyboardIdentifier="TweetsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="FTQ-G1-N2b" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ytz-Ev-cUB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

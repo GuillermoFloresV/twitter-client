@@ -13,6 +13,8 @@
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "ComposeViewController.h"
+#import "AppDelegate.h"
+#import "LoginViewController.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tweetTableView;
@@ -25,6 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+  //  if()
+    
     self.tweetTableView.dataSource = self;
     self.tweetTableView.delegate = self;
 
@@ -53,6 +58,8 @@
     Tweet *tweet = self.tweetArray[indexPath.row];
     NSLog(@"%@", tweet.text);
     
+    //needed to be able to favorite / retweet
+    cell.tweet = tweet;
     cell.dateLabel.text = tweet.createdAtString;
     cell.nameLabel.text = tweet.user.name;
     NSString *concatenatedString = [@"@" stringByAppendingString:tweet.user.screenName ];
@@ -107,7 +114,17 @@
     [self dismissViewControllerAnimated:true completion:nil];
     //calls for a reload of data
     [self.tweetTableView reloadData];
-    
 }
+
+- (IBAction)logoutButton:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+
+    [[APIManager shared] logout];
+}
+
 
 @end
