@@ -60,6 +60,10 @@
     {
         [cell.favoriteButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
     }
+    if(tweet.retweeted)
+    {
+        [cell.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
+    }
     
     //needed to be able to favorite / retweet
     cell.tweet = tweet;

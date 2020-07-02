@@ -61,26 +61,31 @@
         NSLog(@"Cannot retweet, because it is already retweeted");
         //call un retweet in future
     }
-    NSLog(@"Retweeted a tweet!");
-    self.tweet.retweeted = YES;
-    self.tweet.retweetCount += 1;
-    Tweet *curr_tweet = self.tweet;
-    [[APIManager shared] retweet:curr_tweet completion:^(Tweet *tweet, NSError *error) {
-        if(error)
-        {
-            NSLog(@"%@", error.localizedDescription);
-        }
-        else{
-            [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-                if(error){
-                     NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-                }
-                else{
-                    NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-                }
-            }];
-        }
-    }];
+    else
+    {
+        NSLog(@"Retweeted a tweet!");
+        self.tweet.retweeted = YES;
+        self.tweet.retweetCount += 1;
+        Tweet *curr_tweet = self.tweet;
+        [[APIManager shared] retweet:curr_tweet completion:^(Tweet *tweet, NSError *error) {
+            if(error)
+            {
+                NSLog(@"%@", error.localizedDescription);
+            }
+            else{
+                [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+                    if(error){
+                         NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
+                    }
+                    else{
+                        NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
+                    }
+                }];
+            }
+        }];
+    }
+    
+    [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
     [self refreshData];
 }
 -(void) refreshData{
