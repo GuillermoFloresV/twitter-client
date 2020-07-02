@@ -25,7 +25,6 @@
     {
         NSLog(@"Unliked a tweet!");
         NSLog(@"Cannot favorite, because it is already favorited");
-        [self.favoriteButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
         //call unlike in future
     }
     else{

@@ -28,7 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-  //  if()
     
     self.tweetTableView.dataSource = self;
     self.tweetTableView.delegate = self;
@@ -57,6 +56,10 @@
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     Tweet *tweet = self.tweetArray[indexPath.row];
     NSLog(@"%@", tweet.text);
+    if(tweet.favorited)
+    {
+        [cell.favoriteButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
+    }
     
     //needed to be able to favorite / retweet
     cell.tweet = tweet;
