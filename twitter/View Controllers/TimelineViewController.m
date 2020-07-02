@@ -118,6 +118,7 @@
      UINavigationController *navigationController = [segue destinationViewController];
      ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
      composeController.delegate = self;
+     
  }
  
 - (void)didTweet:(nonnull Tweet *)tweet {
