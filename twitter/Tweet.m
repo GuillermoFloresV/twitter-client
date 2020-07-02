@@ -7,6 +7,7 @@
 //
 #import "Tweet.h"
 #import "User.h"
+#import "NSDate+DateTools.h"
 @implementation Tweet
 
  - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
@@ -45,6 +46,8 @@
          formatter.timeStyle = NSDateFormatterNoStyle;
          // Convert Date to String
          self.createdAtString = [formatter stringFromDate:date];
+         self.createdAtString = date.shortTimeAgoSinceNow;
+
      }
      return self;
  }

@@ -15,6 +15,7 @@
 #import "ComposeViewController.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "NSDate+DateTools.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tweetTableView;
@@ -67,6 +68,11 @@
     
     //needed to be able to favorite / retweet
     cell.tweet = tweet;
+    //allows for the DateTools tool to be used (nevermind this would not work)
+//    NSDate *date = tweet.createdAtDate;
+//    NSString *timeSinceTweet= [NSString stringWithFormat:@"%@", NSDate date.timeIntervalSinceNow];
+    
+    
     cell.dateLabel.text = tweet.createdAtString;
     cell.nameLabel.text = tweet.user.name;
     NSString *concatenatedString = [@"@" stringByAppendingString:tweet.user.screenName ];
