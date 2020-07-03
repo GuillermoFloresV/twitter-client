@@ -16,6 +16,7 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "NSDate+DateTools.h"
+#import "TweetDetailsViewController.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tweetTableView;
@@ -72,7 +73,7 @@
 //    NSDate *date = tweet.createdAtDate;
 //    NSString *timeSinceTweet= [NSString stringWithFormat:@"%@", NSDate date.timeIntervalSinceNow];
     
-    
+
     cell.dateLabel.text = tweet.createdAtString;
     cell.nameLabel.text = tweet.user.name;
     NSString *concatenatedString = [@"@" stringByAppendingString:tweet.user.screenName ];
@@ -115,10 +116,24 @@
  #pragma mark - Navigation
  
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     UINavigationController *navigationController = [segue destinationViewController];
-     ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
-     composeController.delegate = self;
-     
+     if([segue.identifier  isEqual: @"composeView"]){
+                  NSLog(@"Composing a tweet.");
+         UINavigationController *navigationController = [segue destinationViewController];
+         ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+         composeController.delegate = self;
+     }
+     else if ([segue.identifier  isEqual: @"tweetDetails"])
+     {
+         NSLog(@"Tapping on a tweet.");
+         UITableViewCell *tappedCell = sender;
+         NSIndexPath *indexPath = [self.tweetTableView indexPathForCell:tappedCell];
+         Tweet *tweet = self.tweetArray[indexPath.row];
+         TweetDetailsViewController *tweetDetailViewController = [segue destinationViewController];
+         NSLog(@"Sending tweet: %@", tweet.user.screenName);
+         NSLog(@"Data before the transfer: %@",tweet.createdAtString );
+         tweetDetailViewController.tweet = tweet;
+
+     }
  }
  
 - (void)didTweet:(nonnull Tweet *)tweet {

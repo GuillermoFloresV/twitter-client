@@ -20,46 +20,60 @@
     // Configure the view for the selected state
 }
 - (IBAction)didTapFavorite:(id)sender {
+        if(self.tweet.favorited)
+        {
+            NSLog(@"Unliked a tweet!");
+            self.tweet.favorited = NO;
+            self.tweet.favoriteCount -= 1;
+            Tweet *curr_tweet = self.tweet;
+            [[APIManager shared] unFavorite:curr_tweet completion:^(Tweet *tweet, NSError *error) {
+                if(error)
+                {
+                    NSLog(@"%@", error.localizedDescription);
+                }
+                else{
+                }
+            }];
+            [self.favoriteButton setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
+            [self refreshData];
+        }
+        else{
+            NSLog(@"Liked a tweet!");
+            self.tweet.favorited = YES;
+            self.tweet.favoriteCount += 1;
+            Tweet *curr_tweet = self.tweet;
+            [[APIManager shared] favorite:curr_tweet completion:^(Tweet *tweet, NSError *error) {
+                if(error)
+                {
+                    NSLog(@"%@", error.localizedDescription);
+                }
+                else{
+                }
 
-    if(self.tweet.favorited)
-    {
-        NSLog(@"Unliked a tweet!");
-        NSLog(@"Cannot favorite, because it is already favorited");
-        //call unlike in future
-    }
-    else{
-        NSLog(@"Liked a tweet!");
-        self.tweet.favorited = YES;
-        self.tweet.favoriteCount += 1;
-        Tweet *curr_tweet = self.tweet;
-        [[APIManager shared] favorite:curr_tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error)
-            {
-                NSLog(@"%@", error.localizedDescription);
-            }
-            else{
-                [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-                    if(error){
-                         NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-                    }
-                    else{
-                        NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-                    }
-                }];
-            }
-        }];
-        [self.favoriteButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
-        [self refreshData];
+            }];
+                        [self.favoriteButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
+            [self refreshData];
+        }
 
     }
-        
-}
 - (IBAction)didTapRetweet:(id)sender {
     if(self.tweet.retweeted)
     {
         NSLog(@"un retweeted a tweet!");
         NSLog(@"Cannot retweet, because it is already retweeted");
         //call un retweet in future
+        self.tweet.retweeted = NO;
+        self.tweet.retweetCount -= 1;
+        Tweet *curr_tweet = self.tweet;
+        [[APIManager shared] unRetweet:curr_tweet completion:^(Tweet *tweet, NSError *error) {
+            if(error)
+            {
+                NSLog(@"%@", error.localizedDescription);
+            }
+            else{}
+            [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
+            [self refreshData];
+                }];
     }
     else
     {
@@ -72,21 +86,11 @@
             {
                 NSLog(@"%@", error.localizedDescription);
             }
-            else{
-                [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-                    if(error){
-                         NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
-                    }
-                    else{
-                        NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
-                    }
+            else{}
+            [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
+            [self refreshData];
                 }];
-            }
-        }];
     }
-    
-    [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
-    [self refreshData];
 }
 -(void) refreshData{
     NSLog(@"Refreshing data");
